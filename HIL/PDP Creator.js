@@ -1,16 +1,19 @@
+
+
 // DD.MM.YYYY - Author - Comments 
 // 06.07.2016 - OD - Execute PDP Creator file 
 
 try { 
 (function(){ 
 var current = new GlideRecord("sc_req_item"); 
-current.get("c320e1884f246600198d119f0310c76d"); 
+current.get("badc0f294fa022005633bc511310c745"); 
 
 var parameters = []; 
 // PDPUserCreator.exe "INC001234" "C:\Temp" "Raymond Eberle" "EBERRAY" "Switzerland" "P" "Product Manager Maintain" "Technical Developer" 
 
 parameters.push(String(current.number)); // RITM 
-parameters.push(String(gs.getProperty("com.hilti.pdp.target"))); 
+//parameters.push(String(gs.getProperty("com.hilti.pdp.target"))); 
+parameters.push(String("C:\\Applications\\PDP")); 
 parameters.push(String(current.variables.required_for.name)); 
 parameters.push(String(current.variables.required_for.user_name)); 
 parameters.push(String(current.variables.location.getDisplayValue())); 
@@ -44,7 +47,16 @@ if (mid.next()) {
 var commandprobe1 = new CommandProbeES(String(mid.name)); 
 commandprobe1.addParameter("skip_sensor", "true"); 
 commandprobe1.setCommand(fn + ' \"' + parameters.join('\" \"') + '\"'); 
-gs.log(commandprobe1.create()); 
+//gs.log(commandprobe1.create()); 
+
+
+var probe = SncProbe.get("Windows - Powershell");
+        probe.setName("Windows - Powershell");
+        probe.setSource("127.0.0.1");
+        probe.addParameter("test.ps1","C:\\Applications\\PDP\\PDPUserCreator.ps1 \"" + parameters.join('\" \"') + "\"");
+probe.addParameter("skip_sensor", true);
+        probe.create(String(mid.name));
+
 return; 
 } else { 
 return; 
