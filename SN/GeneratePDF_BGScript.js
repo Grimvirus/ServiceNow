@@ -1,3 +1,18 @@
-var html = '<p align="center"><font size="2"> </font></p> <p><font size="2">{{Date}}</font></p> <p><font size="2"><strong style="font-size: small;">COMPANY, Inc</strong><span style="font-size: small;">.<br /></span><br /></font></p> <p><font size="2">COMPANY ADDRESS</font>'; 
+var html = '<div><img src="https://dev15176.service-now.com/bg_skillport_cert_top.jpg" width="595px" height="120px"/></div><table border="0" cellpadding="0" cellspacing="0"><tr><td width="66%" valign="top" align="left">main</td><td width="34%"><img src="https://dev15176.service-now.com/bg_skillport_cert_side.jpg" width="" height=""/></td></tr></table>'; 
 
-PFGeneralForm.generate("incident", "e8caedcbc0a80164017df472f39eaed1", "incident", "e8caedcbc0a80164017df472f39eaed1", "od.pdf", html);
+var gdt = new GlideDateTime(); 
+
+var gr = new GlideRecord("sys_attachment");
+gr.addQuery("table_sys_id", "e8caedcbc0a80164017df472f39eaed1");
+gr.deleteMultiple();
+
+PFGeneralForm.generate("incident", "e8caedcbc0a80164017df472f39eaed1", "incident", "e8caedcbc0a80164017df472f39eaed1", "od_"+String(gdt.getNumericValue())+".pdf", html);
+
+// Dependencies:
+// SI: PFGeneralForm
+// SI: extends GeneralForm
+// SI: extends General
+// SI: calls GeneralPDF
+// SI: calls iTextPDFUtil
+// SI: calls GeneralFormJava
+// SI: calls GeneralDebug
