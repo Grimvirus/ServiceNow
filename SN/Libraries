@@ -1,5 +1,6 @@
 var transaction = GlideTransaction.get();
 
+getRequestParameter (options: sysparm_record_target, sysparm_view, sysparm_changeset, sysparm_nameofstack)
 Message
 getEventCount
 getSemaphoreWaitTime
