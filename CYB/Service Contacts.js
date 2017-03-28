@@ -8,7 +8,7 @@ var show = false;
 log.push(String(grS.u_name));
 
 for (var i = 0 ; i < types.length ; i++) {
-var grC = new GlideAggregate("u_service_contact");
+  var grC = new GlideAggregate("u_service_contact");
 grC.addAggregate("COUNT");
 grC.addQuery("u_service", String(grS.sys_id));
 grC.addQuery("u_type", types[i]);
